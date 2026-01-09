@@ -1,4 +1,4 @@
-module example.com
+module github.com/S-P-H-E/htmx-go
 
 go 1.25.5
 
