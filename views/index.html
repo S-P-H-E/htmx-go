@@ -1,0 +1,22 @@
+{{ block "index" . }}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Hello World</title>
+        <script src="https://unpkg.com/htmx.org/dist/htmx.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    </head>
+    <body class="p-10 bg-black text-white flex flex-col items-center justify-center h-dvh gap-4">
+        <div id="count">
+            {{ template "count" . }}
+        </div>
+        <button hx-target="#count" hx-post="/count" class="bg-white text-black px-4 py-1 cursor-pointer active:scale-95 rounded-full">Count</button>
+    </body>
+</html>
+{{ end }}
+
+{{ block "count" . }}
+    <h1 class="text-4xl font-semibold">Count {{ .Count }}</h1>
+{{ end }}
