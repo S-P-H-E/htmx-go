@@ -1,0 +1,27 @@
+{{ block "index" . }}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Hello World</title>
+        <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js"></script>
+        <script
+            defer
+            src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+        ></script>
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    </head>
+    <body
+        x-data="{ count: {{ .Inner }} }"
+        class="p-10 bg-black text-white flex flex-col items-center justify-center h-dvh"
+    >
+        <div class="flex flex-col items-center justify-center gap-4">
+            <h1 x-text="count" class="w-fit text-4xl"></h1>
+            <button @click="count()" class="bg-white text-black px-4 py-1 cursor-pointer active:scale-95 rounded-full">
+                Count
+            </button>
+        </div>
+    </body>
+</html>
+{{ end }}

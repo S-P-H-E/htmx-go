@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"html/template"
 	"io"
 
@@ -18,7 +19,7 @@ func (t *Templates) Render(w io.Writer, name string, data any, c echo.Context) e
 
 func newTemplate() *Templates {
 	return &Templates{
-		templates: template.Must(template.ParseGlob("views/*.html")),
+		templates: template.Must(template.ParseGlob("pages/*.html")),
 	}
 }
 
@@ -32,17 +33,16 @@ func main() {
 	
 	e.Renderer = newTemplate()
 	
-	count := Count { Count: 0 }
+	// count := Count { Count: 0 }
+	
+	inner := func() {
+        fmt.Println("hi")
+    }
+    inner()
 	
 	e.GET("/", func(c echo.Context) error {
-		return c.Render(200, "index", count)
-	})
-	
-	e.POST("/count", func(c echo.Context) error {
-		count.Count++
-		return c.Render(200, "count", count)
+		return c.Render(200, "index", inner)
 	})
 	
 	e.Logger.Fatal(e.Start(":3000"))
-	
 }
