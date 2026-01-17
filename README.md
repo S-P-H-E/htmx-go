@@ -13,7 +13,7 @@ A simple counter web application built with Go, HTMX, and Alpine.js. Deployable 
 
 ```bash
 go mod download
-go run main.go
+go run .
 ```
 
 The app runs at `http://localhost:3000`.
