@@ -1,12 +1,14 @@
 package handler
 
 import (
+	"embed"
 	"html/template"
 	"net/http"
-	"os"
-	"path/filepath"
 	"sync"
 )
+
+//go:embed pages/*.html
+var templatesFS embed.FS
 
 type Count struct {
 	Count int
@@ -19,19 +21,7 @@ var (
 
 func loadTemplate() {
 	tmplOnce.Do(func() {
-		// Try relative path first (works when running from project root)
-		var err error
-		tmpl, err = template.ParseGlob("pages/*.html")
-
-		// If that fails, try absolute path from current working directory
-		if err != nil || tmpl == nil {
-			if cwd, cwdErr := os.Getwd(); cwdErr == nil {
-				// Build glob pattern: use filepath.Join for directory, then append wildcard
-				basePath := filepath.Join(cwd, "pages")
-				pattern := basePath + string(os.PathSeparator) + "*.html"
-				tmpl, _ = template.ParseGlob(pattern)
-			}
-		}
+		tmpl, _ = template.ParseFS(templatesFS, "pages/*.html")
 	})
 }
 
