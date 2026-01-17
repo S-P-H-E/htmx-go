@@ -16,6 +16,11 @@ type Count struct {
 }
 
 func Handler(w http.ResponseWriter, r *http.Request) {
-	count := Count{Count: 0} // State is managed client-side with Alpine.js
-	tmpl.ExecuteTemplate(w, "index", count)
+	switch r.URL.Path {
+	case "/about":
+		tmpl.ExecuteTemplate(w, "about", nil)
+	default:
+		count := Count{Count: 0} // State is managed client-side with Alpine.js
+		tmpl.ExecuteTemplate(w, "index", count)
+	}
 }
